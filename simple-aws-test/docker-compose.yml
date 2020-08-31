@@ -1,0 +1,9 @@
+version: '3'
+services:
+  aws:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment: 
+      SERVICES: 'dynamodb'
+      DEFAULT_REGION: 'us-east-2'

@@ -1,0 +1,13 @@
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+*.test
+
+*.out
