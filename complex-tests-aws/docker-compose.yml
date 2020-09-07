@@ -1,0 +1,13 @@
+version: '3'
+services:
+  aws:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment: 
+      SERVICES: 'sqs,kms,lambda,iam'
+      DEFAULT_REGION: 'us-east-2'
+      LAMBDA_EXECUTOR: docker
+      DOCKER_HOST: unix:///var/run/docker.sock
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
