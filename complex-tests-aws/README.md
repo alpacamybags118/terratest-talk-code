@@ -10,11 +10,7 @@ You will need terraform 0.13 to run this example.
 
 ## Running Terraform
 
-This module is configured to use a local endpoint for creating AWS resources, leverging localstack.
-
-Included in this module is a docker-compose file to configure `localstack`. To start it, just run `docker-compose up -d`
-
-Once running, you can run `terraform plan --var-file=example/terraform.tfvars` to validate what will be created and `terraform apply --var-file=example/terraform.tfvars` using the example data.
+You can run `terraform plan --var-file=example/terraform.tfvars` to validate what will be created and `terraform apply --var-file=example/terraform.tfvars` using the example data.
 
 ## Running Tests
 

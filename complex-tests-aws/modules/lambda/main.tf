@@ -1,12 +1,5 @@
 provider aws {
   region = var.region
-  endpoints {
-    lambda = "http://localhost:4566"
-    iam = "http://localhost:4566"
-  }
-  skip_credentials_validation = true
-  skip_metadata_api_check     = true
-  skip_requesting_account_id  = true
 }
 
 
@@ -35,6 +28,7 @@ resource "aws_lambda_function" "lambda" {
   function_name = var.lambda_name
   role          = aws_iam_role.lambda_iam_role.arn
   handler       = var.lambda_handler
+  timeout       = 10
 
   source_code_hash = filebase64sha256(var.lambda_code_path)
 
@@ -49,19 +43,15 @@ resource "aws_lambda_function" "lambda" {
 }
 
 # This is commented out on purpose to show a failing test due to missing permission. To "fix" the test issue, uncomment this code.
-/*
-resource "aws_iam_policy" "sqs_policy" {
-  count = var.sqs_queue_name ? 1 : 0
 
+resource "aws_iam_policy" "sqs_policy" {
   name        = "${var.lambda_name}-sqs-access-policy"
   description = "Policy to give lambda access to SQS queue"
 
-  policy = templatefile("${path.module}/files/policy.tpl", {sqs_queue_arn = var.sqs_queue_arn})
+  policy = templatefile("${path.module}/files/policy.tpl", { sqs_queue_arn = var.sqs_queue_arn, kms_arn = var.kms_arn })
+}
 
 resource "aws_iam_role_policy_attachment" "sqs_policy_attach" {
-  var.sqs_queue_name ? 1 : 0
-
   role       = aws_iam_role.lambda_iam_role.name
-  policy_arn = aws_iam_policy.sqs_policy[0].arn
+  policy_arn = aws_iam_policy.sqs_policy.arn
 }
-*/

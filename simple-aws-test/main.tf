@@ -10,9 +10,6 @@ terraform {
 # if you wish to deploy this to real AWS, remove the endpoints block
 provider aws {
   region = var.region
-  endpoints {
-    dynamodb = "http://localhost:4566"
-  }
 }
 
 # DynamoDB

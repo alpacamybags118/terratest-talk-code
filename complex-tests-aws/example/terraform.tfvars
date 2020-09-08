@@ -1,2 +1,6 @@
 region = "us-east-2"
 queue_name = "my-queue"
+lambda_name = "my-test-lambda"
+lambda_code_path = "./example/function.zip"
+lambda_handler = "index.handler"
+lambda_runtime = "nodejs12.x"

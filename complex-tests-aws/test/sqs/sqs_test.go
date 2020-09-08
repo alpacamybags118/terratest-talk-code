@@ -20,7 +20,7 @@ func TestSqsModuleEnsureKMSEncryption(t *testing.T) {
 	queueName := fmt.Sprintf("sqs-queue-%s", id)
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../modules/sqs",
+		TerraformDir: "../../modules/sqs",
 		Vars: map[string]interface{}{
 			"region":     "us-east-2",
 			"queue_name": queueName,
@@ -37,8 +37,7 @@ func TestSqsModuleEnsureKMSEncryption(t *testing.T) {
 
 	options := session.Options{
 		Config: aws.Config{
-			Endpoint: aws.String("http://localhost:4566"),
-			Region:   aws.String("us-east-2"),
+			Region: aws.String("us-east-2"),
 		},
 	}
 	session, err := session.NewSessionWithOptions(options)
@@ -74,7 +73,7 @@ func TestSqsModulePutAndGetMessage(t *testing.T) {
 	queueName := fmt.Sprintf("sqs-queue-%s", id)
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../modules/sqs",
+		TerraformDir: "../../modules/sqs",
 		Vars: map[string]interface{}{
 			"region":     "us-east-2",
 			"queue_name": queueName,
@@ -91,8 +90,7 @@ func TestSqsModulePutAndGetMessage(t *testing.T) {
 
 	options := session.Options{
 		Config: aws.Config{
-			Endpoint: aws.String("http://localhost:4566"),
-			Region:   aws.String("us-east-2"),
+			Region: aws.String("us-east-2"),
 		},
 	}
 	session, err := session.NewSessionWithOptions(options)

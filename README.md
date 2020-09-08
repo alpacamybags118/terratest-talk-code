@@ -9,3 +9,7 @@ A basic example of making resources in AWS using Terraform and writing a basic t
 ## complex-tests-aws
 
 An example with more testing, both in count and complexity. Makes resources in AWS using terraform.
+
+## k8-helm-test
+
+An example of using terratest with kubernetes and helm.

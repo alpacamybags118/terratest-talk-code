@@ -30,6 +30,6 @@ variable message_retention_time {
 
 variable delay_time {
   description = "Time in seconds to delay a message from being receivable after entering the queue."
-  type = number
-  default = 90
+  type        = number
+  default     = 5
 }

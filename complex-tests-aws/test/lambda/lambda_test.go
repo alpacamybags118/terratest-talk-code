@@ -40,8 +40,7 @@ func TestLambdaInvoke(t *testing.T) {
 
 	options := session.Options{
 		Config: aws.Config{
-			Endpoint: aws.String("http://localhost:4566"),
-			Region:   aws.String("us-east-2"),
+			Region: aws.String("us-east-2"),
 		},
 	}
 	session, err := session.NewSessionWithOptions(options)
