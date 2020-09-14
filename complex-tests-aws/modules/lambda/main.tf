@@ -42,7 +42,7 @@ resource "aws_lambda_function" "lambda" {
   }
 }
 
-# This is commented out on purpose to show a failing test due to missing permission. To "fix" the test issue, uncomment this code.
+# If you wish to create a failure scenerio for the tests, comment out all the code below.
 
 resource "aws_iam_policy" "sqs_policy" {
   name        = "${var.lambda_name}-sqs-access-policy"

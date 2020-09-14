@@ -6,8 +6,6 @@ terraform {
   }
 }
 
-# we are using localstack for easy local running of this example, specified by the custom endpoint.
-# if you wish to deploy this to real AWS, remove the endpoints block
 provider aws {
   region = var.region
 }
