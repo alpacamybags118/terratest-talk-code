@@ -30,8 +30,8 @@ func TestHelmRenderedDeploymentTemplate(t *testing.T) {
 	helm.UnmarshalK8SYaml(t, output, &renderedDeployment)
 
 	assert.Equal(t, renderedDeployment.GetObjectMeta().GetName(), "test-app-deployment")
-	assert.Equal(t, renderedDeployment.Spec.Template.Spec.Containers[0].Image, "nginx")
-	assert.Equal(t, renderedDeployment.Spec.Template.Spec.Containers[0].Ports[0].ContainerPort, int32(3000))
+	assert.Equal(t, renderedDeployment.Spec.Template.Spec.Containers[0].Image, "httpd")
+	assert.Equal(t, renderedDeployment.Spec.Template.Spec.Containers[0].Ports[0].ContainerPort, int32(80))
 }
 
 func TestHelmRenderedServiceTemplate(t *testing.T) {
@@ -52,7 +52,7 @@ func TestHelmRenderedServiceTemplate(t *testing.T) {
 
 	assert.Equal(t, renderedService.GetObjectMeta().GetName(), "test-app-cluster-ip")
 	assert.Equal(t, renderedService.Spec.Ports[0].Port, int32(80))
-	assert.Equal(t, renderedService.Spec.Ports[0].TargetPort.IntVal, int32(3000))
+	assert.Equal(t, renderedService.Spec.Ports[0].TargetPort.IntVal, int32(80))
 	assert.Equal(t, renderedService.Spec.Selector["app"], "test-app-deployment")
 }
 
