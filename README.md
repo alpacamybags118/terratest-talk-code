@@ -1,6 +1,6 @@
 # Terratest Talk Code Examples
 
-Code examples that are part of my Testing Infrastructure Automaticlly Using Terratest talk. Here is a breakdown of each example
+Code examples that are part of my Testing Infrastructure Automaticlly Using Terratest talk. Below is a breakdown of each example
 
 ## simple-aws-test
 
