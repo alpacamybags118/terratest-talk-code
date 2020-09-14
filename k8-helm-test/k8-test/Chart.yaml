@@ -1,6 +1,6 @@
 apiVersion: v2
-name: k8-example-chart
-description: A Helm chart for Kubernetes
+name: k8-test
+description: A sample helm chart that creates a ingress-exposed service, which contains of a single release.
 
 # A chart can be either an 'application' or a 'library' chart.
 #

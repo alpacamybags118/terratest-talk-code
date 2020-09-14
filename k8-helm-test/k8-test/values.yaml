@@ -1,0 +1,7 @@
+application:
+  name: test-app
+  image: httpd
+
+networking:
+  containerport: 80
+  serviceport: 80
