@@ -19,12 +19,6 @@ module sqs {
   delay_time             = var.delay_time
 }
 
-locals {
-  env_vars = merge({
-    "sqs_queue_url" : module.sqs.sqs_queue_url
-  }, var.env_vars)
-}
-
 module lambda {
   source = "./modules/lambda"
 
@@ -34,7 +28,7 @@ module lambda {
   lambda_handler           = var.lambda_handler
   lambda_runtime           = var.lambda_runtime
   lambda_memory_allocation = var.lambda_memory_allocation
-  env_vars                 = local.env_vars
+  env_vars                 = var.env_vars
 
   sqs_queue_arn = module.sqs.sqs_queue_arn
   kms_arn       = module.sqs.kms_key_arn

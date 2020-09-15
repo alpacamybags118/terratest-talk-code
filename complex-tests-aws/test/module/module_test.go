@@ -43,6 +43,7 @@ func TestModuleE2E(t *testing.T) {
 
 	args := &lambda.InvokeInput{
 		FunctionName: aws.String(lambdaARN),
+		Payload:      []byte(fmt.Sprintf("{\"sqs_queue_url\": \"%s\"}", queueURL)),
 	}
 	result, err := lambdaService.Invoke(args)
 
@@ -51,9 +52,22 @@ func TestModuleE2E(t *testing.T) {
 		t.FailNow()
 	}
 
-	status := *result.StatusCode
+	var functionError string
+	if result.FunctionError == nil {
+		functionError = ""
+	} else {
+		functionError = *result.FunctionError
+	}
 
-	assert.Equal(t, int64(200), status)
+	payload := string(result.Payload)
+
+	if len(functionError) > 0 {
+		fmt.Println("Lambda execution failed with following error:")
+		fmt.Println(payload)
+		t.FailNow()
+	}
+
+	fmt.Println("Lambda executed successfully, picking up messsage from queue.")
 
 	// step 2 pick up the message from the queue
 	sqsService := sqs.New(session)
@@ -68,6 +82,8 @@ func TestModuleE2E(t *testing.T) {
 		fmt.Println(err)
 		t.FailNow()
 	}
+
+	fmt.Println("Received message:")
 	fmt.Println(sqsResult)
 	receivedMessage := *sqsResult.Messages[0].Body
 

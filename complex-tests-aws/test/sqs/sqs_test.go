@@ -120,6 +120,9 @@ func TestSqsModulePutAndGetMessage(t *testing.T) {
 
 	receivedMessage := *result.Messages[0].Body
 
+	fmt.Println("Expected: test message")
+	fmt.Println("Received: ", receivedMessage)
+
 	assert.Equal(t, "test message", receivedMessage)
 
 }
