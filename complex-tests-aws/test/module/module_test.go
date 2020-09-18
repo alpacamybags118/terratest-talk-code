@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/TwinProduction/go-color"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/lambda"
@@ -48,7 +50,7 @@ func TestModuleE2E(t *testing.T) {
 	result, err := lambdaService.Invoke(args)
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(color.Ize(color.Red, err.Error()))
 		t.FailNow()
 	}
 
@@ -62,12 +64,12 @@ func TestModuleE2E(t *testing.T) {
 	payload := string(result.Payload)
 
 	if len(functionError) > 0 {
-		fmt.Println("Lambda execution failed with following error:")
-		fmt.Println(payload)
+		fmt.Println(color.Ize(color.Red, "Lambda execution failed with following error:"))
+		fmt.Println(color.Ize(color.Red, payload))
 		t.FailNow()
 	}
 
-	fmt.Println("Lambda executed successfully, picking up messsage from queue.")
+	fmt.Println(color.Ize(color.Yellow, "Lambda executed successfully, picking up messsage from queue."))
 
 	// step 2 pick up the message from the queue
 	sqsService := sqs.New(session)
@@ -83,9 +85,10 @@ func TestModuleE2E(t *testing.T) {
 		t.FailNow()
 	}
 
-	fmt.Println("Received message:")
-	fmt.Println(sqsResult)
 	receivedMessage := *sqsResult.Messages[0].Body
+
+	fmt.Println(color.Ize(color.Yellow, "Sent message: Hello, world"))
+	fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Received message: %s", receivedMessage)))
 
 	assert.Equal(t, "Hello, world", receivedMessage)
 

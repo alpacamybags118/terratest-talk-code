@@ -1,5 +1,5 @@
-module simple-terraform-example
+module simple-test
 
 go 1.14
 
-require github.com/gruntwork-io/terratest v0.29.0
+require github.com/gruntwork-io/terratest v0.30.0

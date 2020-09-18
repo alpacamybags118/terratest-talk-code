@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/TwinProduction/go-color"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -57,11 +58,15 @@ func TestLambdaInvoke(t *testing.T) {
 	result, err := lambdaService.Invoke(args)
 
 	if err != nil {
-		t.Fail()
+		fmt.Println(color.Ize(color.Red, err.Error()))
+		t.FailNow()
 	}
 
 	status := *result.StatusCode
 	response := strings.TrimSuffix(string(result.Payload), "\n")
+
+	fmt.Println(color.Ize(color.Yellow, `Expected response: "Hello, world!"`))
+	fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Received response: %s", response)))
 
 	assert.Equal(t, int64(200), status)
 	assert.Equal(t, `"Hello, world!"`, response)

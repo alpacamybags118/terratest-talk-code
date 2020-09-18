@@ -16,12 +16,12 @@ import (
 func TestHelmRenderedDeploymentTemplate(t *testing.T) {
 	t.Parallel()
 
-	helmChartPath, err := filepath.Abs("../k8-test")
+	helmChartPath, err := filepath.Abs("../../k8-test")
 	releaseName := "helm-test"
 	require.NoError(t, err)
 
 	options := &helm.Options{
-		ValuesFiles: []string{"../k8-test/values.yaml"},
+		ValuesFiles: []string{"../../k8-test/values.yaml"},
 	}
 
 	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/deployment.yaml"})
@@ -37,12 +37,12 @@ func TestHelmRenderedDeploymentTemplate(t *testing.T) {
 func TestHelmRenderedServiceTemplate(t *testing.T) {
 	t.Parallel()
 
-	helmChartPath, err := filepath.Abs("../k8-test")
+	helmChartPath, err := filepath.Abs("../../k8-test")
 	releaseName := "helm-test"
 	require.NoError(t, err)
 
 	options := &helm.Options{
-		ValuesFiles: []string{"../k8-test/values.yaml"},
+		ValuesFiles: []string{"../../k8-test/values.yaml"},
 	}
 
 	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/service.yaml"})
@@ -59,12 +59,12 @@ func TestHelmRenderedServiceTemplate(t *testing.T) {
 func TestHelmRenderedIngressTemplate(t *testing.T) {
 	t.Parallel()
 
-	helmChartPath, err := filepath.Abs("../k8-test")
+	helmChartPath, err := filepath.Abs("../../k8-test")
 	releaseName := "helm-test"
 	require.NoError(t, err)
 
 	options := &helm.Options{
-		ValuesFiles: []string{"../k8-test/values.yaml"},
+		ValuesFiles: []string{"../../k8-test/values.yaml"},
 	}
 
 	output := helm.RenderTemplate(t, options, helmChartPath, releaseName, []string{"templates/ingress.yaml"})

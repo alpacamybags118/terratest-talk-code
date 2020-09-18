@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/TwinProduction/go-color"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -62,6 +63,9 @@ func TestSqsModuleEnsureKMSEncryption(t *testing.T) {
 
 	keyID := *result.Attributes["KmsMasterKeyId"]
 
+	fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Expected KMS Key: %s", kmsKeyID)))
+	fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Actual KMS Key: %s", keyID)))
+
 	assert.Equal(t, kmsKeyID, keyID)
 
 }
@@ -77,7 +81,7 @@ func TestSqsModulePutAndGetMessage(t *testing.T) {
 		Vars: map[string]interface{}{
 			"region":     "us-east-2",
 			"queue_name": queueName,
-			"delay_time": 5,
+			"delay_time": 0,
 		},
 		NoColor: true,
 	}
@@ -106,7 +110,14 @@ func TestSqsModulePutAndGetMessage(t *testing.T) {
 		QueueUrl:    aws.String(queueURL),
 	}
 
-	sqsService.SendMessage(message)
+	sendResult, err := sqsService.SendMessage(message)
+
+	if err != nil {
+		fmt.Println(color.Ize(color.Red, err.Error()))
+		t.FailNow()
+	}
+
+	fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Message send successfully. Message ID: %s", *sendResult.MessageId)))
 
 	receiveArgs := &sqs.ReceiveMessageInput{
 		QueueUrl: aws.String(queueURL),
@@ -115,13 +126,14 @@ func TestSqsModulePutAndGetMessage(t *testing.T) {
 	result, err := sqsService.ReceiveMessage(receiveArgs)
 
 	if err != nil {
-		t.Fail()
+		fmt.Println(color.Ize(color.Red, err.Error()))
+		t.FailNow()
 	}
 
 	receivedMessage := *result.Messages[0].Body
 
-	fmt.Println("Expected: test message")
-	fmt.Println("Received: ", receivedMessage)
+	fmt.Println(color.Ize(color.Yellow, "Expected: test message"))
+	fmt.Println(color.Ize(color.Yellow, fmt.Sprintf("Received: %s", receivedMessage)))
 
 	assert.Equal(t, "test message", receivedMessage)
 

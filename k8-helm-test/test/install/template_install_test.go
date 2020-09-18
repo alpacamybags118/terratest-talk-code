@@ -19,7 +19,7 @@ import (
 func TestHelmBasicExampleDeployment(t *testing.T) {
 	t.Parallel()
 
-	helmChartPath, err := filepath.Abs("../k8-test")
+	helmChartPath, err := filepath.Abs("../../k8-test")
 	require.NoError(t, err)
 
 	namespaceName := fmt.Sprintf("k8-test-%s", strings.ToLower(random.UniqueId()))
@@ -31,7 +31,7 @@ func TestHelmBasicExampleDeployment(t *testing.T) {
 
 	options := &helm.Options{
 		KubectlOptions: kubectlOptions,
-		ValuesFiles:    []string{"../k8-test/values.yaml"},
+		ValuesFiles:    []string{"../../k8-test/values.yaml"},
 	}
 
 	releaseName := fmt.Sprintf(

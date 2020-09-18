@@ -7,12 +7,11 @@ import (
 )
 
 func TestTerraformBasicExample(t *testing.T) {
-	t.Parallel()
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../",
-		VarFiles: []string{"./example/terraform.tfvars"},
-		NoColor: true,
+		VarFiles:     []string{"./example/terraform.tfvars"},
+		NoColor:      true,
 	}
 	defer terraform.Destroy(t, terraformOptions)
 
